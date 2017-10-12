@@ -3,5 +3,6 @@ public class HelloGitWorld{
 		
 		System.out.println("Git test");
 		System.oyt.println("로컬저장소에서 수정한내용");
+		System.out.println("testing in github");
 	}
 }
