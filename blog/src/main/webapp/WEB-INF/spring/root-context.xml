@@ -30,6 +30,9 @@
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFacotry"></constructor-arg>
 	</bean>
 	
+	<!-- 
+	
+	 -->
 	<mybatis-spring:scan base-package="com.dailyblog.www.model"/>
 	
 </beans>
