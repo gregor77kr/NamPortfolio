@@ -30,9 +30,7 @@
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFacotry"></constructor-arg>
 	</bean>
 	
-	<!-- 
-	
-	 -->
+	<!-- mybatis annotation 패키지 설정 -->
 	<mybatis-spring:scan base-package="com.dailyblog.www.model"/>
 	
 </beans>
