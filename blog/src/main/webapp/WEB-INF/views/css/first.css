@@ -6,6 +6,9 @@
 	left: 10%;
 	height: 400px;
 	width: 1200px;
+}
+
+.main#first-bg{
 	background-image: url('../images/mainTheme.jpg');
 	background-size: 100%;
 }
