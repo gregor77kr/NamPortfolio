@@ -29,7 +29,7 @@
 <body>
 	<%@ include file="../include/header.jsp"%>
 
-	<div class="main">
+	<div class="main" id="first-bg">
 		<div id="center">
 			<article>
 				<h1 class="text-important">이미 ${count_of_member}명의 사용자가
