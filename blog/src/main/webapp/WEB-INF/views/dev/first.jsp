@@ -32,8 +32,7 @@
 	<div class="main" id="first-bg">
 		<div id="center">
 			<article>
-				<h1 class="text-important">이미 ${count_of_member}명의 사용자가
-					BlogDay를 이용하고 있습니다!</h1>
+				<h1 class="text-important">이미 ${count_of_member}명의 사용자가 BlogDay를 이용하고 있습니다!</h1>
 			</article>
 			<h1 class="algin-center theme-font">
 				당신의 일상을 공유해보세요 &nbsp;<small><a href="#">바로가기</a></small>
