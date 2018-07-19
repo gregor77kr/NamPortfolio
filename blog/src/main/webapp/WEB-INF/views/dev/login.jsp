@@ -32,7 +32,7 @@
 	<%@ include file="../include/header.jsp"%>
 
 
-	<div class="col-sm-6 col-sm-offset-3" style="top: 40%">
+	<div class="col-sm-6 col-sm-offset-3">
 		<!-- form -->
 		<form action="" role="form" class="form-horizontal">
 			
