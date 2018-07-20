@@ -23,9 +23,14 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link rel="stylesheet" type="text/css" href="../css/main.css">
 </head>
+
 <body>
 	<%@ include file="../include/header.jsp" %>
 	
@@ -33,22 +38,57 @@
 		
 		<!-- first row -->
 		<div class="row">
-			<div class="col-sm-4">
+		
+			<!-- user -->
+			<div class="col-sm-4 underline">
 				<span class="glyphicon glyphicon-user">${name}</span>
 			</div>
-			<div class="col-sm-8">
-				col-sm-9(write.jsp)
+			
+			<!--  write -->
+			<div class="col-sm-6">
+				<form action="" class="form-group">
+					<textarea rows="" cols="" class="form-control" id="summernote" name="contents">
+					
+					</textarea>
+				</form>		
 			</div>
 		</div>
 		
 		<!-- second row -->
 		<div class="row">
-			<div class="col-sm-4">second col-sm-4(알림)</div>
+			<!-- 알림 -->
+			<div class="col-sm-4">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>알림</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr>
+							<td>알림내용</td>
+						</tr>
+					</tbody>
+					
+				</table>
+			</div>
+			
+			<!-- 게시물(readAll) -->
 			<div class="col-sm-8">second col-sm-8(게시판)</div>
 		</div>
 	</div>
 	
 	
 	<%@ include file="../include/footer.jsp" %>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#summernote').summernote(function() {
+				height : 400
+
+			});
+		})
+	</script>
 </body>
 </html>
