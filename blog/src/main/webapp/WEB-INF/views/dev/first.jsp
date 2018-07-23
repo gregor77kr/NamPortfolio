@@ -3,45 +3,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- Latest compiled and minified CSS -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<title>first.jsp</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
-
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/first.css">
+<link rel="stylesheet" type="text/css" href="../css/template.css">
 </head>
 <body>
-	<%@ include file="../include/header.jsp"%>
+	<header>
+		<%@ include file="../include/header.jsp"%>
+	</header>
 
-	<div class="main" id="first-bg">
-		<div id="center">
-			<article>
-				<h1 class="text-important">이미 ${count_of_member}명의 사용자가 BlogDay를 이용하고 있습니다!</h1>
-			</article>
-			<h1 class="algin-center theme-font">
-				당신의 일상을 공유해보세요 &nbsp;<small><a href="#">바로가기</a></small>
-			</h1>
-
+	<div class="container text-center">
+		<div class="jumbotron">
+			<h1 class="h3 mb-3 font-weight-normal">당신의 일상을 공유해보세요</h1>
+			<p>이미 ${count_of_user}명이 BlogDay를 사용하고 있습니다!
+			<p>
+				<button class="btn btn-primary">시작하기</button>
 		</div>
+
+		<div class="container-fluid bg-3 text-center" id="main">
+			<h3>Some of my Work</h3>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					<p>Some text..</p>
+					<img src="https://placehold.it/150x80?text=IMAGE"
+						class="img-responsive" style="width: 100%" alt="Image">
+				</div>
+				<div class="col-sm-4">
+					<p>Some text..</p>
+					<img src="https://placehold.it/150x80?text=IMAGE"
+						class="img-responsive" style="width: 100%" alt="Image">
+				</div>
+				<div class="col-sm-4">
+					<p>Some text..</p>
+					<img src="https://placehold.it/150x80?text=IMAGE"
+						class="img-responsive" style="width: 100%" alt="Image">
+				</div>
+				
+			</div>
+		</div>
+		<br>
 	</div>
 
-	<%@ include file="../include/footer.jsp"%>
-</body>
+	<footer>
+		<%@ include file="../include/footer.jsp"%>
+	</footer>
 
+</body>
 </html>
