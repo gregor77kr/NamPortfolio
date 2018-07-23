@@ -1,19 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<div class="row">
+	<div class="col-sm-2 col-sm-push-1">
+		<span>Copyright &copy; DailyBlog 2018</span>
+	</div>
 
-<!-- starting footer -->
-<div class="navbar navbar-default navbar-fixed-bottom" id="footer">
-	<div class="container">
-		<div class="row">
-			<p class="navbar-text col-sm-push-1 col-sm-3">Copyright &copy; DailyBlog 2018</p>
-			<ul class="nav navbar-nav navbar-center col-sm-push-1 col-sm-5">
-				<li><a href="#">Privacy Policy</a>
-				<li><a href="#">Term of Use</a>
-				<li><a href="#">About us</a>
-				<li><a href="#">Contact us</a>
-			</ul>
-		</div>
+	<div class="col-sm-5 col-sm-push-3">
+		<a href="#">Privacy Policy</a> 
+		<a href="#">Term of Use</a> 
+		<a href="#">About us</a> 
+		<a href="#">Contact us</a>
+		<address>
+			서울시 동대문구 천장산로 9길 18번지 1층
+		</address>
 	</div>
 </div>
-<!-- ending footer -->
