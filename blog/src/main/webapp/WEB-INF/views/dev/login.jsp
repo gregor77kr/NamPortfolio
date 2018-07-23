@@ -25,52 +25,33 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" type="text/css" href="../css/signin.css">
+<link rel="stylesheet" type="text/css" href="../css/login.css">
+<link rel="stylesheet" type="text/css" href="../css/template.css">
 
 </head>
+
 <body>
-	<%@ include file="../include/header.jsp"%>
+	<header>
+		<%@ include file="../include/header.jsp"%>
+	</header>
 
-
-	<div class="col-sm-6 col-sm-offset-3">
-		<!-- form -->
-		<form action="" role="form" class="form-horizontal">
-			
-			<div class="form-group" >
-				<div class="col-sm-10" id="background">
-					<img alt="" src="../images/welcome.jpg">
-				</div>
-			</div>
-			
-			
-			<div class="form-group">		
-				<div class="col-sm-10 ">
-					<input class="form-control input-sm" type="text" id="id" placeholder="BlogDay 아이디를 입력해주세요"> 
-						<span class="help-block">아이디를 분실하신경우 <a href="#"><span class="glyphicon glyphicon-question-sign"></span></a></span>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<div class="col-sm-10">
-					<input class="form-control input-sm" type="password" id="password" placeholder="BlogDay 비밀번호를 입력해주세요"> 
-					<span class="help-block">비밀번호를를 분실하신경우 <a href="#"><span class="glyphicon glyphicon-question-sign"></span></a></span>
-				</div>
-			</div>
-
-
-			<div class="form-group">
-				<button type="button" class="btn btn-success col-sm-push-3 col-sm-2">
-					로그인 <i class="fa fa-check spaceLeft"></i>
-				</button>
-				<button type="button" class="btn btn-info col-sm-push-4 col-sm-2">
-					돌아가기 <i class="fa fa-times spaceLeft"></i>
-				</button>
-			</div>
+	<div class="text-center"  id="main">
+	
+		<form action="" class="form-signin">
+			<img alt="" src="" class="mb-4" width="72" height="72">
+			<h1 class="h3 mb-3 font-weight-normal">Please Sign in</h1>
+			<label for="inputUserId" class="sr-only">Id</label>
+			<input type="text" id="user_id" class="form-control" placeholder="아이디를 입력해주세요">
+			<input type="password" id="passwd" class="form-control" placeholder="비밀번호를 입력해주세요">
+			<button type="button" class="btn btn-primary">로그인</button>
+			<button type="button" class="btn btn-warning">홈으로</button>			
 		</form>
+	
 	</div>
 
-
-	<%@ include file="../include/footer.jsp"%>
+	<footer>
+		<%@ include file="../include/footer.jsp"%>
+	</footer>
 
 
 </body>
