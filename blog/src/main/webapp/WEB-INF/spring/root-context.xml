@@ -15,22 +15,16 @@
 		<property name="password" value="ehdgml90"></property>		
 	</bean>	
 	
-	<!-- sqlSessionFactory -->	
-	<bean id="sqlSessionFacotry" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<!-- dataSource 객체 참조 -->
-		<property name="dataSource" ref="dataSource"></property>
-		
-		<!-- mapper 위치 설정 : mappers 디렉토리 밑의 *Mapper.xml-->
-		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"/>
+		<!--  <property name="configLocation" value="classpath:mybatis-config.xml"/> -->
 	</bean>
 	
-	<!-- sqlSession -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<!-- sqlSessionFactory 객체 single ton -->
-		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFacotry"></constructor-arg>
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
 	
-	<!-- mybatis annotation 패키지 설정 -->
-	<mybatis-spring:scan base-package="com.dailyblog.www.model"/>
+	
 	
 </beans>
