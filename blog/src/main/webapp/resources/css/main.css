@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+.underline:after{
+	content : "";
+	display : block;
+	width : 120px;
+	border-bottom: 1px solid #bcbcbc;
+	
+}
+
+.row{
+	margin-left: 10px;
+	
+}
+
+#img-div>img{
+	width: 700px;
+	height: 400px;
+}
+
+
+#readAll{
+	padding :0;
+	border : 1px solid rgb(220,220,220);
+}
+
+.form-control{
+	border : 0.5px solid rgb(255,255,255);
+	padding : 0;
+}
+
+.form-group{
+	margin :0;
+}

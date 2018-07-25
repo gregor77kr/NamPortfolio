@@ -4,33 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
-
-<!-- include summernote css/js -->
-<link
-	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css"
-	rel="stylesheet">
-<script
-	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link rel="stylesheet" type="text/css" href='<c:url value="/webjars/bootstrap/3.3.6/css/bootstrap.min.css"/>'>
+<link href="<c:url value="/webjars/summernote/0.8.10/dist/summernote.css" />">
 <link rel="stylesheet" type="text/css" href="../css/template.css">
 <link rel="stylesheet" type="text/css" href="../css/main.css">
 </head>
@@ -40,7 +17,6 @@
 	<header>
 		<%@ include file="../include/header.jsp"%>
 	</header>
-
 	<br>
 	<br>
 	<div id="main">
@@ -84,32 +60,54 @@
 			</div>
 
 			<!-- 게시물(readAll) -->
-			<div class="col-sm-8">
+			<div class="col-sm-6" id="readAll">
 				<section>
 					<!-- 게시자 정보 -->
 					<header>
-						<div>게시자 프로필 썸네일 및 id / 친구추가</div>
+						<div class="">
+							<img alt="프로필사진" src="" class="img-circle">
+							<a>게시자이름</a>
+							&middot;
+							<a href="#">친구추가</a>							
+						</div>
 					</header>
 
 					<!-- 이미지 -->
-					<div>
+					<div id="img-div" class="text-center">
 						<img alt="이미지 입니다" src="">
 					</div>
 
 					<!-- 댓글 및 좋아요 -->
 					<div>
-						<section>좋아요 누르기</section>
-						<div>좋아요 개수 표시</div>
-						<div>댓글 표시</div>
-
 						<section>
-							<form action="">
-								<h1>댓글 작성 form</h1>
+							<button class="btn-link">
+								<span class="glyphicon glyphicon-heart-empty"></span>
+							</button>
+							<span class="badge">좋아요개수</span>
+						</section>
+						
+						<div>
+							<ul class="list-group">
+								<li class="list-group-item">
+									<a href="">작성자 계정</a>
+									<span>댓글내용</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+						
+					<!-- 댓글 -->
+						<section>
+							<form action="#" class="form-group">
+								<textarea rows="" cols="" class="form-control" placeholder="댓글 달기" id="ta">
+									
+								</textarea>
 							</form>
 						</section>
-					</div>
 				</section>
 			</div>
+			
+			
 		</div>
 	</div>
 
@@ -118,14 +116,18 @@
 		<%@ include file="../include/footer.jsp"%>
 	</footer>
 
+<!-- script area -->
+<script type="text/javascript" src="<c:url value="/webjars/jquery/1.9.1/jquery.min.js"/>" ></script>
+<script type="text/javascript" src="<c:url value="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/webjars/summernote/0.8.10/dist/summernote.js"/>"></script>
 
-</body>
 <script type="text/javascript">
-/* 	$(document).ready(function() {
+	$(document).ready(function() {
 		$('#summernote').summernote(function() {
 			height: 400
 
 		});
-	}) */
+	}) 
 </script>
+</body>
 </html>

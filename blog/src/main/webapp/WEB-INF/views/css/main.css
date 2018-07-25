@@ -1,9 +1,0 @@
-@charset "UTF-8";
-
-.underline:after{
-	content : "";
-	display : block;
-	width : 120px;
-	border-bottom: 1px solid #bcbcbc;
-	
-}
