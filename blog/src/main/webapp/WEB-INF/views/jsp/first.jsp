@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/first.css"></c:url>'>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/template.css"></c:url>">
+<%@ page session="true" %>
 </head>
 <body>
 	<header>
@@ -21,8 +22,10 @@
 	<div class="container text-center">
 		<div class="jumbotron">
 			<h1 class="h3 mb-3 font-weight-normal">당신의 일상을 공유해보세요</h1>
-			<p>이미 ${count_of_user}명이 BlogDay를 사용하고 있습니다!
-			<p>
+			<p>이미 ${count_of_user}명이 BlogDay를 사용하고 있습니다!</p>
+			
+
+			
 				<button class="btn btn-primary">시작하기</button>
 		</div>
 
