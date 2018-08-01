@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="member">
+
+	<insert id="insert_member" parameterType="com.dailyblog.www.model.member.dto.MemberDto">
+		<!-- 먼저 member table에 insert -->
+		INSERT INTO member
+		VALUES (member_seq.nextval, #{user_id},#{passwd}, #{user_name},
+		#{birth_date}, #{mobile_num}, #{address}, #{email}, sysdate)
+
+		<!-- 그리고 insert한 mem_no 추출하여 profile에 nickname 설정 -->
+	</insert>
+		
+	<insert id="insert_nickname" parameterType="com.dailyblog.www.model.member.dto.MemberDto">
+		INSERT INTO profile (mem_no, nickname)
+		VALUES ((SELECT mem_no FROM member WHERE user_id = #{user_id}), #{nickname} )	
+	</insert>	
+
+
+</mapper>
