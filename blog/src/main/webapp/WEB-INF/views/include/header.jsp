@@ -45,7 +45,7 @@
 								</c:when>
 								<c:otherwise>
 									<ul class="nav navbar-nav navbar-right">
-										<li><a href="${path}/member/detail.do"><span
+										<li><a href="${path}/board/main.do"><span
 												class="glyphicon glyphicon-user"></span>&nbsp;${sessionScope.user_info.user_name}</a></li>
 										<li><a href="${path}/login/logout.do"><span
 												class="glyphicon glyphicon-log-in"></span>&nbsp; Log Out</a></li>
