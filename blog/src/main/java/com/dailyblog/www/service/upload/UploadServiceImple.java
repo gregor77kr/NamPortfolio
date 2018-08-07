@@ -4,16 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.MidiDevice.Info;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,9 +29,9 @@ public class UploadServiceImple implements UploadService {
 	@Inject
 	UploadDao uploadDao;
 
-	@Resource(name = "uploadPath")
-	private String uploadPath;
-
+	private String basicPath = "D:\\SpringWorkSpace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\blog\\WEB-INF\\views\\images\\";
+	private static final Logger log = LoggerFactory.getLogger(UploadServiceImple.class);
+	
 	@Override
 	public void upload(UploadDto dto, HttpSession session, MultipartFile file) throws Exception {
 		@SuppressWarnings("unchecked")
@@ -48,9 +48,10 @@ public class UploadServiceImple implements UploadService {
 		
 		dto.setMem_no(mem_no);
 		dto.setUp_no(up_no);
+		dto.setOrigin_file_name(file.getOriginalFilename());
 		
-		if(file.getSize() >0) {
-			dto.setFile_name(uploadFile(file.getOriginalFilename(), file.getBytes()));
+		if(!file.isEmpty()) {
+			dto.setFile_name(uploadFile(user_id ,file.getOriginalFilename(), file.getBytes()));
 			uploadDao.uploadFile(dto);
 		} else {
 			uploadDao.uploadNormal(dto);
@@ -59,16 +60,28 @@ public class UploadServiceImple implements UploadService {
 	}// upload ends
 	
 	
-	private String uploadFile(String originalName, byte[] fileData) throws IOException {
+	private String uploadFile(String user_id ,String originalName, byte[] fileData) throws IOException {
+		
+		log.info("확장자명 :" + originalName.substring(originalName.lastIndexOf('.')));
 		
 		// 파일명 암호화
-		String file_name =  UUID.randomUUID().toString().replaceAll("-", "");
+		String file_name =  UUID.randomUUID().toString().replaceAll("-", "") + originalName.substring(originalName.indexOf('.'));
+		log.info("file_name :" + file_name);
 		
-		// file 객체 생성
-		File target = new File(uploadPath, file_name);
+		// uploadPath = basicPath 밑의 user_id
+		String uploadPath = basicPath + user_id;
+		log.info("uploadPath :" + uploadPath);
 		
-		// file을 target에 생성
-		FileCopyUtils.copy(fileData, target);
+		// images 폴더에 해당 id의 디렉토리가 없는 경우에 생성
+		if(!new File(uploadPath).exists()) {
+			new File(uploadPath).mkdirs();
+		}
+		
+		// 파일 객체 생성
+		File fin = new File(uploadPath, file_name);
+		
+		// 해당 경로에 fileData 생성
+		FileCopyUtils.copy(fileData, fin);
 		
 		return file_name;
 	}

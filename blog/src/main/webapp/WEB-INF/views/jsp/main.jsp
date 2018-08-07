@@ -84,11 +84,16 @@
 						</header>
 	
 						<!-- 이미지 -->
-						<div id="img-div" class="text-center">
-							<c:if test="${i.file_name != null }">
-								<img alt="이미지 입니다" src="">						
-							</c:if>
-							<span>${i.comments}</span>
+						<c:if test="${i.file_name != null }">
+							<div class="row">
+								<div class="col-sm-offset-2 col-sm-8">
+									<img  src='${path}/images/${i.file_name}' style="width: 100%">													
+								</div>				
+							</div>
+						</c:if>
+						
+						<div id = "comments">
+							${i.comments}							
 						</div>
 	
 						<!-- 댓글 및 좋아요 -->
@@ -138,7 +143,7 @@
 			$("#form1").attr("action",
 			"${path}/board/write.do");
 			$("form1").submit();
-		});
+		});// write ends
 	})
 
 </script>

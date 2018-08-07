@@ -8,13 +8,17 @@ public class UploadDto {
 	private String user_id;
 	private String comments;
 	private String file_name;
+	private String origin_file_name;
 	private Date up_date;
 	private String pub_yn;
-
+	
+	
+	
 	@Override
 	public String toString() {
 		return "UploadDto [up_no=" + up_no + ", mem_no=" + mem_no + ", user_id=" + user_id + ", comments=" + comments
-				+ ", file_name=" + file_name + ", up_date=" + up_date + ", pub_yn=" + pub_yn + "]";
+				+ ", file_name=" + file_name + ", origin_file_name=" + origin_file_name + ", up_date=" + up_date
+				+ ", pub_yn=" + pub_yn + "]";
 	}
 
 	public String getUp_no() {
@@ -72,6 +76,15 @@ public class UploadDto {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+
+	public String getOrigin_file_name() {
+		return origin_file_name;
+	}
+
+	public void setOrigin_file_name(String origin_file_name) {
+		this.origin_file_name = origin_file_name;
+	}
+	
 	
 	
 

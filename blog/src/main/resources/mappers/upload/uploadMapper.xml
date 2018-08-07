@@ -5,13 +5,13 @@
   
   <mapper namespace="upload">
   	<insert id="insertFile" parameterType="com.dailyblog.www.model.upload.dto.UploadDto">
-		INSERT INTO upload (up_no, mem_no, comments, file_name, up_date) 
-		VALUES (#{up_no}||up_seq.nextval, #{mem_no}, #{comments}, #{file_name}, sysdate)
+		INSERT INTO upload (up_no, mem_no, comments, file_name, up_date, origin_file_name) 
+		VALUES (#{up_no}||up_seq.nextval, #{mem_no}, #{comments}, #{file_name}, sysdate, #{origin_file_name})
   	</insert>
   	
   	 <insert id="insertNormal" parameterType="com.dailyblog.www.model.upload.dto.UploadDto">
 		INSERT INTO upload (up_no, mem_no, comments, up_date) 
-		VALUES (#{up_no}||up_seq.nextval, #{mem_no}, #{comments}, sysdate)
+		VALUES (#{up_no}||up_seq.nextval, #{mem_no}, #{comments}, sysdate, #{origin_file_name})
   	</insert>
   	
   </mapper>

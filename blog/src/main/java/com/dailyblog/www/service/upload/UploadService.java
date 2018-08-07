@@ -1,7 +1,5 @@
 package com.dailyblog.www.service.upload;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
