@@ -28,7 +28,7 @@ public class LoginController {
 	public ModelAndView loginProcess(MemberDto dto, HttpSession session) {
 		
 		if(loginService.login(dto, session)) {
-			return new ModelAndView("redirect:/");
+			return new ModelAndView("redirect:/board/main.do");
 		} else {
 			return new ModelAndView("login", "message", "error");			
 		}
