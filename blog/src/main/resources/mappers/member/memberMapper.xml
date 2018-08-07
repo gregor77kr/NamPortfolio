@@ -19,6 +19,12 @@
 		INSERT INTO profile (mem_no, nickname)
 		VALUES ((SELECT mem_no FROM member WHERE user_id = #{user_id}), #{nickname} )	
 	</insert>	
-
+	
+	<select id="select_mem_no" parameterType="String" resultType="String">
+		SELECT mem_no
+		FROM member
+		WHERE user_id = #{user_id}
+	</select>
+	
 
 </mapper>

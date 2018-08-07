@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="board">
+ 	<select id="readAll" parameterType="String" resultType="com.dailyblog.www.model.board.dto.BoardDto">
+		SELECT t1.up_no, t1.mem_no, t1.comments, t1.file_name, t2.user_name, t2.user_id
+		FROM upload t1 INNER JOIN member t2
+		ON t1.mem_no = t2.mem_no AND t1.mem_no = (SELECT mem_no FROM member WHERE user_id = #{user_id})	
+ 	</select>
+ 	
+ 	
+ </mapper>
