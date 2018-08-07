@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="upload">
+  	<insert id="insertFile" parameterType="com.dailyblog.www.model.upload.dto.UploadDto">
+		INSERT INTO upload (up_no, mem_no, comments, file_name, up_date) 
+		VALUES (#{up_no}||up_seq.nextval, #{mem_no}, #{comments}, #{file_name}, sysdate)
+  	</insert>
+  	
+  	 <insert id="insertNormal" parameterType="com.dailyblog.www.model.upload.dto.UploadDto">
+		INSERT INTO upload (up_no, mem_no, comments, up_date) 
+		VALUES (#{up_no}||up_seq.nextval, #{mem_no}, #{comments}, sysdate)
+  	</insert>
+  	
+  </mapper>
