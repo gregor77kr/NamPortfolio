@@ -19,6 +19,7 @@
 #readAll{
 	padding :0;
 	border : 1px solid rgb(220,220,220);
+	margin-bottom : 20px;
 }
 
 .form-control{
@@ -31,19 +32,69 @@
 }
 
 #write_div{
-	margin-bottom : 5px;
-	padding : 0;
+	margin : 10px;
+	padding : 10px;
 	border : 0.5px solid rgb(220,220,220);
-
 }
 
 #text{
 	width : 100%;
 	height : 80px;
 	resize : none;
+	border-radius : 7px;
+	border : 1px solid rgb(35, 110, 170);
+	padding : 2px;
 }
 
 #write_btn_div{
 	margin : 5px;
 }
 
+#reply-div>input[type=text]{
+	width : 50%;
+	border : 0;
+	border : 1px solid black;
+	border-radius : 7px;
+	padding: 2px;
+}
+
+#btnRemove{
+	background-color : white;
+	border : 0px;
+}
+
+#form-reply{
+	margin : 10px;
+	padding : 5px;
+}
+
+#comments{
+	margin : 10px;
+}
+#like{
+	width : 85%;
+	margin : 10px;
+	background-color : rgb(230,230,230);
+	padding : 5px;
+}
+
+#reply-list {
+	color : black;
+	text-align : left;
+	background-color: white;
+	border-radius : 7px;
+	padding : 2px;
+}
+
+.posi-left{
+	position : relative;
+	left : 30px;
+}
+
+#writer_info{
+	margin : 10px;
+}
+
+#writer_info>span{
+	margin-left : 250px;
+}

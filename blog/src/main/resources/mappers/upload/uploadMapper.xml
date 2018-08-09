@@ -11,7 +11,7 @@
   	
   	 <insert id="insertNormal" parameterType="com.dailyblog.www.model.upload.dto.UploadDto">
 		INSERT INTO upload (up_no, mem_no, comments, up_date) 
-		VALUES (#{up_no}||up_seq.nextval, #{mem_no}, #{comments}, sysdate, #{origin_file_name})
+		VALUES (#{up_no}||up_seq.nextval, #{mem_no}, #{comments}, sysdate)
   	</insert>
   	
   </mapper>

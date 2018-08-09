@@ -5,18 +5,16 @@ import java.util.Date;
 public class BoardDto {
 	private String mem_no;
 	private String up_no;
+	private String nickname;
 	private String user_id;
-	private String user_name;
 	private String file_name;
 	private String comments;
 	private Date up_date;
 	private String pub_yn;
 	
-	
-	
 	@Override
 	public String toString() {
-		return "BoardDto [mem_no=" + mem_no + ", up_no=" + up_no + ", user_id=" + user_id + ", user_name=" + user_name
+		return "BoardDto [mem_no=" + mem_no + ", up_no=" + up_no + ", nickname=" + nickname + ", user_id=" + user_id
 				+ ", file_name=" + file_name + ", comments=" + comments + ", up_date=" + up_date + ", pub_yn=" + pub_yn
 				+ "]";
 	}
@@ -32,17 +30,17 @@ public class BoardDto {
 	public void setUp_no(String up_no) {
 		this.up_no = up_no;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
-	}
-	public String getUser_name() {
-		return user_name;
-	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
 	}
 	public String getFile_name() {
 		return file_name;
