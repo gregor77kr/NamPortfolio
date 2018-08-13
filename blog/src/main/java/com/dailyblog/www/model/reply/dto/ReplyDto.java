@@ -2,18 +2,19 @@ package com.dailyblog.www.model.reply.dto;
 
 public class ReplyDto {
 	private String reply_no;
-	
+
 	private String up_no;
 	private String mem_no;
 	private String reply;
-	
+
 	private String nickname;
-	private String user_name;
-	
+	private String user_id;
+	private String reply_date;
+
 	@Override
 	public String toString() {
 		return "ReplyDto [reply_no=" + reply_no + ", up_no=" + up_no + ", mem_no=" + mem_no + ", reply=" + reply
-				+ ", nickname=" + nickname + ", user_name=" + user_name + "]";
+				+ ", nickname=" + nickname + ", user_id=" + user_id + ", reply_date=" + reply_date + "]";
 	}
 
 	public String getReply_no() {
@@ -56,14 +57,20 @@ public class ReplyDto {
 		this.nickname = nickname;
 	}
 
-	public String getUser_name() {
-		return user_name;
+	public String getUser_id() {
+		return user_id;
 	}
 
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
-	
-	
-	
+
+	public String getReply_date() {
+		return reply_date;
+	}
+
+	public void setReply_date(String reply_date) {
+		this.reply_date = reply_date;
+	}
+
 }

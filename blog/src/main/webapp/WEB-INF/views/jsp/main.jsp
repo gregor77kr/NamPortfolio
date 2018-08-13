@@ -112,36 +112,41 @@
 						</c:if>
 						
 						<div id = "comments" class="posi-left">
-							${i.comments}							
+							<p> ${i.comments}</p>							
 							<div>
 								<button class="btn-link">
 									<span class="glyphicon glyphicon-heart-empty"></span>
 								</button>
-								<span class="badge">좋아요개수</span>							
+								
+								<span class="badge">좋아요개수</span>
+								
+								<button class="btn-link" id="btnShow" style="margin-left: 400px;" onclick="showHide(${i.up_no})">
+									<span class="glyphicon glyphicon-chevron-down"></span>
+								</button>							
 							</div>
 						</div>
-	
-						<!-- 댓글 및 좋아요 -->
-						<div id="like" class="posi-left">
-							<div>
-								<img alt="프로필" src="" class="img-circle">
-								<span id="reply-list">
-									댓글!
-								</span>
+						
+						
+						<div id="${i.up_no}" style="display: none;">
+							<!-- 댓글 및 좋아요 -->
+							<div id="like" class="posi-left">
+								<div id="reply-list">
+									
+								</div>
 							</div>
-						</div>
-							
-						<!-- 댓글 -->
+								
+							<!-- 댓글 -->
 							<section>
-								<form id="form-reply" method="get">
-									<div id="reply-div" class="posi-left">
-										<img alt="프로필" src="" class="img-circle">
-										<input type="hidden" name="up_no" value="${i.up_no}">										
-										<input type="text" name="reply" placeholder="댓글...">
-										<label> <button type="button" id="btnRemove"><span class="glyphicon glyphicon-remove"></span></button></label>								
-									</div>
-								</form>
+									<form id="form-reply" method="get">
+										<div id="reply-div" class="posi-left">
+											<img alt="프로필" src="" class="img-circle">
+											<input type="hidden" name="up_no" value="${i.up_no}" id="up_no">										
+											<input type="text" name="reply" placeholder="댓글...">
+											<label> <button type="button" id="btnRemove"><span class="glyphicon glyphicon-remove"></span></button></label>								
+										</div>
+									</form>
 							</section>
+						</div>
 					</section>
 				</div>
 			</c:forEach>
@@ -164,6 +169,7 @@ $(function() {
 		$("#form1").attr("action", "${path}/board/write.do");
 		$("#form1").submit();
 	});// write ends
+	
 
 	// 엔터키 누르면 작성되는 js
 	$('[type=text]').keypress(function(e) {
@@ -172,7 +178,50 @@ $(function() {
 			$("#form-reply").submit();
 		}
 	});
-})
+	
+})// windown on load
+
+
+function showHide(up_no) {
+	var attr = $("#"+up_no).css("display");
+	
+	if(attr == "none"){
+		$("#" + up_no).css("display", "block");
+		getCommentList(up_no);
+		
+	} else {
+		$("#" + up_no).css("display", "none");
+		
+	}
+}// showHide ends
+
+
+function getCommentList(up_no) {
+	
+	$.ajax({
+		type : 'GET',
+		url : "${path}/reply/readAll.do",
+		data : {'up_no' : up_no},
+		success : function(data) {
+			
+			var html = "";
+			
+			$.each(data, function(idx, val) {
+				console.log(idx + " " + val.reply);
+				html += "<table>";
+				html += "<tr>" + "<td>" ;
+				html += val.user_id +"(" + val.nickname + ")"
+				html += "<td/>";
+				html += "<td>" + val.reply + "</td>";
+				html += "<table/>";
+			});
+			
+			$("#reply-list").html(html);
+		}// success ends
+		
+	});
+}// getCommentList ends
+
 
 </script>
 
