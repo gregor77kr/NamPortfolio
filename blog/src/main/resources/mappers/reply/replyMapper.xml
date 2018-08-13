@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reply">
+	<select id="countReply" parameterType="String" resultType="int">
+		SELECT count(up_no)
+		FROM reply
+		WHERE up_no = #{up_no}
+		GROUP BY up_no
+	</select>
+
+	<insert id="write"
+		parameterType="com.dailyblog.www.model.reply.dto.ReplyDto">
+		INSERT INTO reply VALUES
+		(#{reply_no}, #{mem_no}, #{up_no}, #{reply}, TO_DATE(#{reply_date}, 'yyyy/MM/dd
+		hh:mi') )
+	</insert>
+
+	<select id="readAll" parameterType="String" resultType="com.dailyblog.www.model.reply.dto.ReplyDto">
+		select t1.reply_no, t1.mem_no, t1.reply, TO_CHAR(t1.reply_date), t2.nickname, t3.user_id
+		from reply t1
+		inner join profile t2 on (t1.mem_no = t2.mem_no)
+		inner join member t3 on (t1.mem_no = t3.mem_no)
+		WHERE t1.up_no = #{up_no}
+	</select>
+
+</mapper>
