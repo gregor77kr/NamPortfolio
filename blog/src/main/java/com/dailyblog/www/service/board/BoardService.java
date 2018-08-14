@@ -8,5 +8,6 @@ import com.dailyblog.www.model.board.dto.BoardDto;
 
 public interface BoardService {
 	
-	public List<BoardDto> readAll(HttpSession session); 
+	public List<BoardDto> readAll(HttpSession session);
+	public void delete(String up_no);
 }

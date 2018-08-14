@@ -20,6 +20,13 @@ public class BoardDaoImple implements BoardDao {
 		
 		return sqlSession.selectList("board.readAll", user_id);
 	}
+
+	@Override
+	public void delete(String up_no) {
+		sqlSession.delete("board.delete", up_no);
+		
+	}
+	
 	
 	
 }

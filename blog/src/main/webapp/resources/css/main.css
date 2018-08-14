@@ -58,7 +58,7 @@
 	padding: 2px;
 }
 
-#btnRemove{
+.btnRemove{
 	background-color : white;
 	border : 0px;
 }

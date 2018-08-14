@@ -98,7 +98,7 @@
 								<a>${i.nickname}</a>
 								&middot;
 								<a href="#">친구추가</a>
-								<span>게시일 <button type="button" id="btnRemove"><span class="glyphicon glyphicon-remove"></span></button></span>							
+								<span>게시일 <button type="button" class="btnRemove" value="${i.up_no}"><span class="glyphicon glyphicon-remove"></span></button></span>							
 							</div>
 						</header>
 	
@@ -169,7 +169,8 @@ $(function() {
 		$("#form1").attr("action", "${path}/board/write.do");
 		$("#form1").submit();
 	});// write ends
-
+	
+	// focus event
 	$('input[type=text]').focus(function() {
 		up_no = $(this).siblings('input[type=hidden]').val();
 		
@@ -182,6 +183,14 @@ $(function() {
 			 addComment(up_no); 
 		}
 	});
+	
+	$(".btnRemove").click(function() {
+		var up_no = $(this).val();
+		
+		if(confirm("이 게시물을 삭제하시겠습니까?")){
+			location.href = "${path}/board/delete.do?up_no="+up_no;
+		}
+	});// 게시물 삭제
 	
 })// windown on load
 

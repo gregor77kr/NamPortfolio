@@ -41,7 +41,6 @@ public class ReplyController {
 		//log.info("up_no :" + up_no);
 		List<ReplyDto> list = replySerivce.readAll(up_no);
 
-		
 		return list;
 	}
 }

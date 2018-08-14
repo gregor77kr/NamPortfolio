@@ -28,5 +28,11 @@ public class BoardServiceImple implements BoardService {
 		//log.info("data" + boardDao.readAll((String) map.get("user_id")));
 		return boardDao.readAll((String) map.get("user_id"));
 	}
-		
+
+	@Override
+	public void delete(String up_no) {
+		boardDao.delete(up_no);
+	}
+	
+	
 }

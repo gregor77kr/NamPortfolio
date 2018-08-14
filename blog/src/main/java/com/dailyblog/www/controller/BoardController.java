@@ -6,9 +6,11 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -41,5 +43,11 @@ public class BoardController {
 		
 		return "redirect:/board/main.do";
 	}
-
+	
+	@RequestMapping("delete.do")
+	public String delete(@RequestParam String up_no) {
+		
+		boardService.delete(up_no);
+		return "redirect:/board/main.do";
+	}
 }
