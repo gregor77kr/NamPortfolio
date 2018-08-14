@@ -31,7 +31,7 @@ public class ReplyServiceImple implements ReplyService {
 
 
 		//log.info("session :" + session.getAttribute("user_info"));
-		log.info("dto :" + dto);
+		//log.info("dto :" + dto);
 		// mem_no, up_no !null, reply_no, reply !null, reply_date
 
 		// mem_no 선택하여 set

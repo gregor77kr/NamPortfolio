@@ -114,38 +114,37 @@
 						<div id = "comments" class="posi-left">
 							<p> ${i.comments}</p>							
 							<div>
-								<button class="btn-link">
+							<button class="btn-link">
 									<span class="glyphicon glyphicon-heart-empty"></span>
 								</button>
 								
 								<span class="badge">좋아요개수</span>
 								
-								<button class="btn-link" id="btnShow" style="margin-left: 400px;" onclick="showHide(${i.up_no})">
+								<button class="btn-link" style="margin-left: 400px;" onclick="showHide(${i.up_no})">
 									<span class="glyphicon glyphicon-chevron-down"></span>
-								</button>							
+								</button>	
+			
 							</div>
 						</div>
 						
 						
 						<div id="${i.up_no}" style="display: none;">
 							<!-- 댓글 및 좋아요 -->
-							<div id="like" class="posi-left">
-								<div id="reply-list">
-									
-								</div>
+							<div id="reply-list" class="posi-left">
+								
 							</div>
 								
 							<!-- 댓글 -->
-							<section>
-									<form id="form-reply" method="get">
-										<div id="reply-div" class="posi-left">
-											<img alt="프로필" src="" class="img-circle">
-											<input type="hidden" name="up_no" value="${i.up_no}" id="up_no">										
-											<input type="text" name="reply" placeholder="댓글...">
-											<label> <button type="button" id="btnRemove"><span class="glyphicon glyphicon-remove"></span></button></label>								
-										</div>
-									</form>
-							</section>
+							
+								<form class="form-reply" method="get">
+									<div id="reply-div" class="posi-left">
+										<img alt="프로필" src="" class="img-circle">
+										<input type="hidden" name="up_no" value="${i.up_no}" id="up_no">										
+										<input type="text" name="reply" placeholder="댓글...">
+										<label> <button type="button" id="btnRemove"><span class="glyphicon glyphicon-remove"></span></button></label>								
+									</div>
+								</form>							
+							
 						</div>
 					</section>
 				</div>
@@ -164,22 +163,28 @@
 <%-- <script type="text/javascript" src="<c:url value="/resources/js/main.js"/>" charset="UTF-8"></script> --%>
 
 <script type="text/javascript">
+var up_no;
 $(function() {
 	$("#btnWrite").click(function() {
 		$("#form1").attr("action", "${path}/board/write.do");
 		$("#form1").submit();
 	});// write ends
-	
 
+	$('input[type=text]').focus(function() {
+		up_no = $(this).siblings('input[type=hidden]').val();
+		
+	});
+	
 	// 엔터키 누르면 작성되는 js
 	$('[type=text]').keypress(function(e) {
+		
 		if(e.which==13){
-			$("#form-reply").attr("action", "${path}/reply/write.do");
-			$("#form-reply").submit();
+			 addComment(up_no); 
 		}
 	});
 	
 })// windown on load
+
 
 
 function showHide(up_no) {
@@ -199,7 +204,7 @@ function showHide(up_no) {
 function getCommentList(up_no) {
 	
 	$.ajax({
-		type : 'GET',
+		type : 'POST',
 		url : "${path}/reply/readAll.do",
 		data : {'up_no' : up_no},
 		success : function(data) {
@@ -207,7 +212,7 @@ function getCommentList(up_no) {
 			var html = "";
 			
 			$.each(data, function(idx, val) {
-				console.log(idx + " " + val.reply);
+			
 				html += "<table>";
 				html += "<tr>" + "<td>" ;
 				html += val.user_id +"(" + val.nickname + ")"
@@ -216,11 +221,34 @@ function getCommentList(up_no) {
 				html += "<table/>";
 			});
 			
-			$("#reply-list").html(html);
-		}// success ends
-		
+			$("#" + up_no +">#reply-list").html(html);
+		},// success ends
+		error : function(request,status,error){
+	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	     }
 	});
 }// getCommentList ends
+
+function addComment(up_no) {
+	
+	$.ajax({
+		type : 'POST',
+		url : '${path}/reply/write.do',
+		data : $("#"+up_no+">form").serialize(),
+		success : function(data) {
+			
+			$("#" + up_no).css("display", "block");
+			getCommentList(up_no);
+
+		},// success ends
+		error : function(request,status,error){
+	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	     }
+	})
+} // add comment ends
+
+
+
 
 
 </script>
