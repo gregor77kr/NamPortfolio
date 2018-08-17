@@ -88,7 +88,7 @@
 
 
 			<!-- 게시물(readAll) -->
-			<c:forEach var="i" items="${list}">			
+			<c:forEach var="i" items="${map.list}">			
 				<div class="col-sm-offset-4 col-sm-5" id="readAll">
 					<section>
 						<!-- 게시자 정보 -->
@@ -123,21 +123,25 @@
 								</button>
 								
 								<span class="badge">좋아요개수</span>
-								
-								<button class="btn-link" style="margin-left: 400px;" onclick="showHide(${i.up_no})">
-									<span class="glyphicon glyphicon-chevron-down"></span>
-								</button>	
 			
 							</div>
 						</div>
 						
 						
-						<div id="${i.up_no}" style="display: none;">
+						<div id="${i.up_no}" >
 							<!-- 댓글 및 좋아요 -->
-							<div id="reply-list" class="posi-left">
-								
-							</div>
-								
+								<div id="reply-list" class="posi-left">
+									<c:forEach var="j" items="${map.reply_list}">
+										<c:if test="${i.up_no == j.up_no }">
+											<p id="${j.reply_no}">
+												${j.nickname}(${j.user_id}) : <mark>${j.reply} </mark> <small>${j.reply_date}</small>
+												<button class="replyUpdate" value="${j.reply_no}"><span class="glyphicon glyphicon-pencil" style="display: inline;"></span> </button>
+												<button class="replyDelete" value="${j.reply_no}"><span class="glyphicon glyphicon-remove" style="display: inline;"></span> </button>
+											</p>
+										</c:if>
+									</c:forEach>
+								</div>							
+						
 							<!-- 댓글 -->
 							
 								<form class="form-reply" method="get">
@@ -145,7 +149,7 @@
 										<img alt="프로필" src="" class="img-circle">
 										<input type="hidden" name="up_no" value="${i.up_no}" id="up_no">										
 										<input type="text" name="reply" placeholder="댓글...">
-										<label> <button type="button" id="btnRemove"><span class="glyphicon glyphicon-remove"></span></button></label>								
+										<label> <button type="button" class="btnRemove"><span class="glyphicon glyphicon-remove"></span></button></label>								
 									</div>
 								</form>							
 							
@@ -160,7 +164,9 @@
 	<footer>
 		<%@ include file="../include/footer.jsp"%>
 	</footer>
+	
 
+	
 <!-- script area -->
 <script type="text/javascript" src="<c:url value="/webjars/jquery/1.9.1/jquery.min.js"/>" ></script>
 <script type="text/javascript" src="<c:url value="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"/>"></script>
@@ -205,49 +211,60 @@ $(function() {
 		);
 	});// 게시물 수정
 	
-})// windown on load
-
-
-
-function showHide(up_no) {
-	var attr = $("#"+up_no).css("display");
+	$(".replyDelete").click(function() {
+		var reply_no = $(this).val();
+		if(confirm("댓글을 삭제하시겠습니까?")){
+			$.ajax({
+				type : 'POST',
+				url : "${path}/reply/delete.do",
+				data : {'reply_no' : reply_no},
+				dataType : "text",
+				success : function(data) {
+					if(data =="success"){
+						$("#"+reply_no).remove();
+					}
+				}
+			});//ajax delete ends
+		}
+	});// 댓글 삭제
 	
-	if(attr == "none"){
-		$("#" + up_no).css("display", "block");
-		getCommentList(up_no);
+	$(".replyUpdate").click(function() {
+		var reply_no = $(this).val();
 		
-	} else {
-		$("#" + up_no).css("display", "none");
-		
-	}
-}// showHide ends
+		//1. 수정버튼을 누르면
+		//2. p태그 밑의 mark가 input type text로 변하고
+		//3. 거기에 글을 적어서 넣은 후 엔터를 치면
+		//4. input text가 생기고 
+		//5. 그곳의 value를 받아와서! ajax를 통해서 update를 한다
+		//6. ajax의 success function에서 mark 값을 다시 바꿔준다.
+		$("#"+reply_no+">mark, small, button").remove();
+		$("#"+reply_no).append('<input type="text" id="reply">');
+		$("#"+reply_no).append('<button class="replyUpdateConfirm">수정</button>');
+		$("#"+reply_no).append('<button class="replyUpdateCancle">취소</button>');
+	});//댓글 수정
+	
+})// windown on load
 
 
 function getCommentList(up_no) {
 	
 	$.ajax({
 		type : 'POST',
-		url : "${path}/reply/readAll.do",
+		url : "${path}/reply/readOne.do",
 		data : {'up_no' : up_no},
 		success : function(data) {
 			
 			var html = "";
 			
 			$.each(data, function(idx, val) {
-			
-				html += "<table>";
-				html += "<tr>" + "<td>" ;
-				html += val.user_id +"(" + val.nickname + ")"
-				html += "<td/>";
-				html += "<td>" + val.reply + "</td>";
-				html += "<table/>";
+				// <p>${j.nickname}(${j.user_id}) : <mark>${j.reply} </mark> <small>${j.reply_date}</small> </p>
+				html += "<p>" + val.nickname + "(" + val.user_id + ") :";
+				html += "<mark>" + val.reply + "</mark>";
+				html += "<small>" + val.reply_date + "</small>" + "</p>";
 			});
 			
 			$("#" + up_no +">#reply-list").html(html);
-		},// success ends
-		error : function(request,status,error){
-	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	     }
+		}
 	});
 }// getCommentList ends
 
@@ -259,14 +276,11 @@ function addComment(up_no) {
 		data : $("#"+up_no+">form").serialize(),
 		dataType : "text",
 		success : function(data) {
+			if(data == 'success'){
+				getCommentList(up_no);
+			}
 			
-			$("#" + up_no).css("display", "block");
-			getCommentList(up_no);
-			
-		},// success ends
-		error : function(request,status,error){
-	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	     }
+		}
 	})
 } // add comment ends
 

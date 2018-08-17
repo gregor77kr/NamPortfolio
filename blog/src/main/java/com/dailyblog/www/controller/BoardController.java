@@ -1,13 +1,13 @@
 package com.dailyblog.www.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dailyblog.www.model.board.dto.BoardDto;
+import com.dailyblog.www.model.reply.dto.ReplyDto;
 import com.dailyblog.www.model.upload.dto.UploadDto;
 import com.dailyblog.www.service.board.BoardService;
 import com.dailyblog.www.service.upload.UploadService;
@@ -32,12 +33,26 @@ public class BoardController {
 	
 	@Inject
 	BoardService boardService;
+
 	
 	@RequestMapping("/main.do")
-	public ModelAndView main(HttpSession session ) {
-		List<BoardDto> list =  boardService.readAll(session);
+	public ModelAndView main(HttpSession session) {
 		
-		return new ModelAndView("main", "list", list);
+		// 이 list에는 해당 session 게시물의 up_no가 있다.
+		// 그렇다면 여기서 list에서 up_no를 추출하여 그 것에 해당하는 댓글 목록을 불러와보자
+		List<BoardDto> list = boardService.readAll(session);
+		
+		// return 할 객체를 생성하고
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", list);
+		
+		// parameter로 던져줄 list가 null이 아닐 때만 댓글조회 method를 호출하여
+		if(!list.isEmpty()) {
+			List<ReplyDto> reply_list = boardService.readReply(list);
+			map.put("reply_list", reply_list);
+		}
+		
+		return new ModelAndView("main", "map", map);
 	}
 	
 	@RequestMapping(value= "write.do", method = RequestMethod.POST)

@@ -58,7 +58,7 @@
 	padding: 2px;
 }
 
-.btnRemove, .btnUpdate{
+.btnRemove, .btnUpdate, .replyUpdate, .replyDelete, .replyUpdateConfirm, .replyUpdateCancle{
 	background-color : white;
 	border : 0px;
 }

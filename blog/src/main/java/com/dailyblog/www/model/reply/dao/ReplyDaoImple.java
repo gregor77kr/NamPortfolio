@@ -31,8 +31,15 @@ public class ReplyDaoImple implements ReplyDao {
 	@Override
 	public List<ReplyDto> readAll(String up_no) {
 		
-		return sqlSession.selectList("reply.readAll",up_no);
+		return sqlSession.selectList("reply.readOne",up_no);
 	}
+
+	@Override
+	public void delete(String reply_no) {
+		sqlSession.delete("reply.delete", reply_no);
+		
+	}
+	
 	
 	
 }

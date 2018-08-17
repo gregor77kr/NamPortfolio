@@ -60,6 +60,15 @@ public class ReplyServiceImple implements ReplyService {
 		
 		return replyDao.readAll(up_no);
 	}
+
+
+
+	@Override
+	public void delete(String reply_no) {
+		replyDao.delete(reply_no);
+		
+	}
+	
 	
 	
 }

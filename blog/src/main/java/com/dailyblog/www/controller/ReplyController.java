@@ -34,13 +34,21 @@ public class ReplyController {
 		return "success";
 	}
 	
-	@RequestMapping(value = "readAll.do", method = RequestMethod.POST )
+	@RequestMapping(value = "readOne.do", method = RequestMethod.POST )
 	@ResponseBody
 	public List<ReplyDto> readAll(@RequestParam(value="up_no") String up_no) {
 		// 게시물 목록
 		//log.info("up_no :" + up_no);
 		List<ReplyDto> list = replySerivce.readAll(up_no);
-
+		
 		return list;
+	}
+	
+	@RequestMapping(value = "delete.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String delete(@RequestParam(value="reply_no") String reply_no) {
+		
+		replySerivce.delete(reply_no);
+		return "success";
 	}
 }

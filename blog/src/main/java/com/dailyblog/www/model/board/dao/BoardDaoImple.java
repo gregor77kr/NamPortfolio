@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.dailyblog.www.model.board.dto.BoardDto;
+import com.dailyblog.www.model.reply.dto.ReplyDto;
 
 @Repository
 public class BoardDaoImple implements BoardDao {
@@ -38,8 +39,11 @@ public class BoardDaoImple implements BoardDao {
 		sqlSession.update("board.update", dto);
 		
 	}
-	
-	
-	
+
+	@Override
+	public List<ReplyDto> readReply(List<String> no_list) {
+		
+		return sqlSession.selectList("reply.readAll", no_list);
+	}
 	
 }

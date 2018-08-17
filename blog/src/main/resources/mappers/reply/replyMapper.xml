@@ -18,12 +18,30 @@
 		hh:mi') )
 	</insert>
 
-	<select id="readAll" parameterType="String" resultType="com.dailyblog.www.model.reply.dto.ReplyDto">
-		select t1.reply_no, t1.mem_no, t1.reply, TO_CHAR(t1.reply_date), t2.nickname, t3.user_id
+	<select id="readOne" parameterType="String" resultType="com.dailyblog.www.model.reply.dto.ReplyDto">
+		select t1.reply_no, t1.up_no, t1.mem_no, t1.reply, TO_CHAR(t1.reply_date) as reply_date, t2.nickname, t3.user_id
 		from reply t1
 		inner join profile t2 on (t1.mem_no = t2.mem_no)
 		inner join member t3 on (t1.mem_no = t3.mem_no)
 		WHERE t1.up_no = #{up_no}
-	</select>
+	</select> 
+	
+	<select id="readAll" parameterType="java.util.List" resultType="com.dailyblog.www.model.reply.dto.ReplyDto">
+		select t1.reply_no, t1.up_no, t1.mem_no, t1.reply, TO_CHAR(t1.reply_date) as reply_date, t2.nickname, t3.user_id
+		from reply t1
+		inner join profile t2 on (t1.mem_no = t2.mem_no)
+		inner join member t3 on (t1.mem_no = t3.mem_no)
 
+		WHERE up_no IN
+		
+		<foreach collection="list" item="i" open="(" close=")" separator=",">
+			#{i}
+		</foreach>
+	
+	</select>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM reply
+		WHERE reply_no = #{reply_no}
+	</delete>
 </mapper>
