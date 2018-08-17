@@ -27,5 +27,17 @@
 			delete from upload where up_no=#{up_no};
 		end}
 	</delete>
-
+	
+	<select id="readOne" parameterType="String" resultType="com.dailyblog.www.model.board.dto.BoardDto">
+		SELECT up_no, comments
+		FROM upload
+		WHERE up_no = #{up_no}
+	</select>
+	
+	<update id="update" parameterType="com.dailyblog.www.model.board.dto.BoardDto">
+		UPDATE upload
+		SET comments = #{comments}, up_date = sysdate
+		WHERE up_no =#{up_no}
+	</update>
+	
 </mapper>

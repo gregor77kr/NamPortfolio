@@ -10,4 +10,6 @@ public interface BoardService {
 	
 	public List<BoardDto> readAll(HttpSession session);
 	public void delete(String up_no);
+	public BoardDto readOne(String up_no);
+	public void update(BoardDto dto);
 }

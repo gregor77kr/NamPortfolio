@@ -58,7 +58,7 @@
 	padding: 2px;
 }
 
-.btnRemove{
+.btnRemove, .btnUpdate{
 	background-color : white;
 	border : 0px;
 }
@@ -96,7 +96,7 @@
 }
 
 #writer_info>span{
-	margin-left : 250px;
+	margin-left : 220px;
 }
 
 

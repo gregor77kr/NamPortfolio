@@ -33,6 +33,19 @@ public class BoardServiceImple implements BoardService {
 	public void delete(String up_no) {
 		boardDao.delete(up_no);
 	}
+
+	@Override
+	public BoardDto readOne(String up_no) {
+		
+		return boardDao.readOne(up_no);
+	}
+
+	@Override
+	public void update(BoardDto dto) {
+		
+		boardDao.update(dto);
+	}
+	
 	
 	
 }

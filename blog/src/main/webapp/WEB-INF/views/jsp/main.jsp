@@ -98,7 +98,11 @@
 								<a>${i.nickname}</a>
 								&middot;
 								<a href="#">친구추가</a>
-								<span>게시일 <button type="button" class="btnRemove" value="${i.up_no}"><span class="glyphicon glyphicon-remove"></span></button></span>							
+								<span>
+									게시일 
+									<button type="button" class="btnUpdate" value="${i.up_no}">수정</button>
+									<button type="button" class="btnRemove" value="${i.up_no}">삭제</button>																	
+								</span>			
 							</div>
 						</header>
 	
@@ -112,7 +116,7 @@
 						</c:if>
 						
 						<div id = "comments" class="posi-left">
-							<p> ${i.comments}</p>							
+							<p id="p${i.up_no}"> ${i.comments}</p>							
 							<div>
 							<button class="btn-link">
 									<span class="glyphicon glyphicon-heart-empty"></span>
@@ -192,6 +196,15 @@ $(function() {
 		}
 	});// 게시물 삭제
 	
+	$(".btnUpdate").click(function() {
+		var up_no = $(this).val();
+		window.open(
+			"${path}/board/updateForm.do?up_no="+up_no,
+			"updateForm",
+			"width=500, height=500"
+		);
+	});// 게시물 수정
+	
 })// windown on load
 
 
@@ -244,20 +257,18 @@ function addComment(up_no) {
 		type : 'POST',
 		url : '${path}/reply/write.do',
 		data : $("#"+up_no+">form").serialize(),
+		dataType : "text",
 		success : function(data) {
 			
 			$("#" + up_no).css("display", "block");
 			getCommentList(up_no);
-
+			
 		},// success ends
 		error : function(request,status,error){
 	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 	     }
 	})
 } // add comment ends
-
-
-
 
 
 </script>

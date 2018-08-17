@@ -26,6 +26,19 @@ public class BoardDaoImple implements BoardDao {
 		sqlSession.delete("board.delete", up_no);
 		
 	}
+
+	@Override
+	public BoardDto readOne(String up_no) {
+		
+		return sqlSession.selectOne("board.readOne", up_no);
+	}
+
+	@Override
+	public void update(BoardDto dto) {
+		sqlSession.update("board.update", dto);
+		
+	}
+	
 	
 	
 	
