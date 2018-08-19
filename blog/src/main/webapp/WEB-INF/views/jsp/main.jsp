@@ -264,6 +264,8 @@ function updateTransfer(reply_no, reply) {
 				$("#"+reply_no + "> input[type='text'], button").remove();
 				$("#"+reply_no).append('<mark>' + reply + '</mark>');
 				$("#"+reply_no).append('<small>' + reply_date + '</small>');
+				
+				
 				$("#"+reply_no).append('<button class="replyUpdate" value="' + reply_no + '"><span class="glyphicon glyphicon-pencil" style="display: inline;"></span> </button>');
 				$("#"+reply_no).append('<button class="replyDelete" value="' + reply_no + '"><span class="glyphicon glyphicon-remove" style="display: inline;"></span> </button>');
 		}
