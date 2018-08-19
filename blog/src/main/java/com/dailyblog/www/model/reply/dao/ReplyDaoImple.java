@@ -39,6 +39,13 @@ public class ReplyDaoImple implements ReplyDao {
 		sqlSession.delete("reply.delete", reply_no);
 		
 	}
+
+	@Override
+	public void update(ReplyDto dto) {
+		sqlSession.update("reply.update", dto);
+		
+	}
+	
 	
 	
 	

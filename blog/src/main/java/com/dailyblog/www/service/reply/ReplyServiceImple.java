@@ -68,6 +68,17 @@ public class ReplyServiceImple implements ReplyService {
 		replyDao.delete(reply_no);
 		
 	}
+
+
+
+	@Override
+	public void update(String reply_no, String reply) {
+		ReplyDto dto = new ReplyDto();
+		dto.setReply_no(reply_no);
+		dto.setReply(reply);
+		
+		replyDao.update(dto);
+	}
 	
 	
 	

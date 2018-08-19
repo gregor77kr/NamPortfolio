@@ -51,4 +51,14 @@ public class ReplyController {
 		replySerivce.delete(reply_no);
 		return "success";
 	}
+	
+	@RequestMapping(value = "update.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String update(@RequestParam(value = "reply_no") String reply_no, @RequestParam(value = "reply") String reply ){
+		
+		replySerivce.update(reply_no, reply);
+		
+		return "success";
+	}
+	
 }

@@ -10,4 +10,5 @@ public interface ReplyDao {
 	public int countReply(String up_no);
 	public List<ReplyDto> readAll(String up_no);
 	public void delete(String reply_no);
+	public void update(ReplyDto dto);
 }

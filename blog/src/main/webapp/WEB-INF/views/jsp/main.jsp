@@ -241,9 +241,45 @@ $(function() {
 		$("#"+reply_no).append('<input type="text" id="reply">');
 		$("#"+reply_no).append('<button class="replyUpdateConfirm">수정</button>');
 		$("#"+reply_no).append('<button class="replyUpdateCancle">취소</button>');
-	});//댓글 수정
+		
+		$(".replyUpdateConfirm").click(function() {
+			var reply = $(this).siblings('input[type=text]').val();
+			updateTransfer(reply_no, reply);
+		});
+	});//댓글 수정 클릭시 view 변화
+	
+	
 	
 })// windown on load
+
+function updateTransfer(reply_no, reply) {
+	$.ajax({
+		type : 'POST',
+		url : "${path}/reply/update.do",
+		data : {'reply_no' : reply_no, 'reply' : reply},
+		dataType : 'text',
+		success : function(data) {
+				
+				var reply_date = dateSelect();
+				$("#"+reply_no + "> input[type='text'], button").remove();
+				$("#"+reply_no).append('<mark>' + reply + '</mark>');
+				$("#"+reply_no).append('<small>' + reply_date + '</small>');
+				$("#"+reply_no).append('<button class="replyUpdate" value="' + reply_no + '"><span class="glyphicon glyphicon-pencil" style="display: inline;"></span> </button>');
+				$("#"+reply_no).append('<button class="replyDelete" value="' + reply_no + '"><span class="glyphicon glyphicon-remove" style="display: inline;"></span> </button>');
+		}
+	});
+}//transfer ends
+
+function dateSelect(){
+	var today = new Date();
+	var month = today.getMonth()+ 1;
+	
+	var twoDigitsMonth = (month < 10) ? "0"+month : month;	
+	var year = today.getFullYear().toString().substring(2);	
+	
+	var curDate = year + "/" + twoDigitsMonth + "/" + today.getDate();
+	return curDate;
+}
 
 
 function getCommentList(up_no) {
