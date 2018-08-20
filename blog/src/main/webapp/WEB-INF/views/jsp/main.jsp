@@ -228,7 +228,7 @@ $(function() {
 		}
 	});// 댓글 삭제
 	
-	$(".replyUpdate").click(function() {
+	$(document).on('click', '.replyUpdate', function() {
 		var reply_no = $(this).val();
 		
 		//1. 수정버튼을 누르면
@@ -242,12 +242,13 @@ $(function() {
 		$("#"+reply_no).append('<button class="replyUpdateConfirm">수정</button>');
 		$("#"+reply_no).append('<button class="replyUpdateCancle">취소</button>');
 		
-		$(".replyUpdateConfirm").click(function() {
+		$(document).on('click', '.replyUpdateConfirm', function() {
 			var reply = $(this).siblings('input[type=text]').val();
-			updateTransfer(reply_no, reply);
+			updateTransfer(reply_no, reply);			
 		});
-	});//댓글 수정 클릭시 view 변화
-	
+		
+		//취소누르면 이전 댓글이 다시 표시되게 그려야한다
+	});
 	
 	
 })// windown on load
@@ -261,11 +262,9 @@ function updateTransfer(reply_no, reply) {
 		success : function(data) {
 				
 				var reply_date = dateSelect();
-				$("#"+reply_no + "> input[type='text'], button").remove();
+				$("#"+reply_no + "> input[type='text'], button, mark, small").remove();
 				$("#"+reply_no).append('<mark>' + reply + '</mark>');
 				$("#"+reply_no).append('<small>' + reply_date + '</small>');
-				
-				
 				$("#"+reply_no).append('<button class="replyUpdate" value="' + reply_no + '"><span class="glyphicon glyphicon-pencil" style="display: inline;"></span> </button>');
 				$("#"+reply_no).append('<button class="replyDelete" value="' + reply_no + '"><span class="glyphicon glyphicon-remove" style="display: inline;"></span> </button>');
 		}
