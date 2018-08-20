@@ -211,7 +211,7 @@ $(function() {
 		);
 	});// 게시물 수정
 	
-	$(".replyDelete").click(function() {
+	$(document).on('click', '.replyDelete', function() {
 		var reply_no = $(this).val();
 		if(confirm("댓글을 삭제하시겠습니까?")){
 			$.ajax({
@@ -226,11 +226,13 @@ $(function() {
 				}
 			});//ajax delete ends
 		}
-	});// 댓글 삭제
+	});// 게시물 삭제
+	
 	
 	$(document).on('click', '.replyUpdate', function() {
 		var reply_no = $(this).val();
-		
+		var mark = $("#"+reply_no +">mark").text();
+		var small = $("#"+reply_no +">small").text();
 		//1. 수정버튼을 누르면
 		//2. p태그 밑의 mark가 input type text로 변하고
 		//3. 거기에 글을 적어서 넣은 후 엔터를 치면
@@ -246,8 +248,16 @@ $(function() {
 			var reply = $(this).siblings('input[type=text]').val();
 			updateTransfer(reply_no, reply);			
 		});
-		
 		//취소누르면 이전 댓글이 다시 표시되게 그려야한다
+		
+		$(document).on('click', '.replyUpdateCancle', function() {
+			$("#"+reply_no +">input, button, mark, small").remove();
+			$("#"+reply_no).append('<mark>' + mark + '</mark>');
+			$("#"+reply_no).append('<small>' + small + '</small>');
+			$("#"+reply_no).append('<button class="replyUpdate" value="' + reply_no + '"><span class="glyphicon glyphicon-pencil" style="display: inline;"></span> </button>');
+			$("#"+reply_no).append('<button class="replyDelete" value="' + reply_no + '"><span class="glyphicon glyphicon-remove" style="display: inline;"></span> </button>');
+		
+		});
 	});
 	
 	
