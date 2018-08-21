@@ -52,17 +52,38 @@
 		src="<c:url value="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"/>"></script>
 	<script type="text/javascript">
 		$(function() {
-			$("#btnLogin").click(
-					function() {
-						$(".form-signin").attr("action",
-								"${path}/login/loginProcess.do");
-						$(".form-signin").submit();
-					});//btn ends
+			$("#btnLogin").click(function() {
+				submitForm();
+			});
 
 			$("#btnHome").click(function() {
 				location.href = "${path}";
 			});// home ends
-		})
+			
+			$("#passwd").keypress(function(e) {
+				if(e.which == 13){
+					submitForm();	
+				}
+			});
+			
+		})// document ready ends
+		
+		function submitForm() {
+			if($("#user_id").val() == ""){
+				alert("아이디를 입력하세요");
+				$("#userid").focus();
+				return; // return해야 함수가 종료됨
+			}
+			
+			if($("#passwd").val() == ""){
+				alert("비밀번호를 입력하세요");
+				$("#passwd").focus();
+				return;
+			}
+			$(".form-signin").attr("action", "${path}/login/loginProcess.do");
+			$(".form-signin").submit();
+		}// submitForm ends
+
 	</script>
 </body>
 </html>
