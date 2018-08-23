@@ -37,7 +37,7 @@
 					<div class="col-sm-5 ">
 						<input class="form-control input-sm" type="text" id="user_id"
 							name="user_id" placeholder="아이디를 입력해주세요"> <span
-							class="help-block" id="help-user_id">아이디는 5자 이상 15자 이하로 설정해주세요</span>
+							class="help-block" id="help-user_id">아이디는 영어와 숫자로 5자 이상 15자 이하로 설정해주세요</span>
 					</div>
 				</div>
 
@@ -64,7 +64,7 @@
 					<div class="col-sm-5">
 						<input class="form-control input-sm" type="text" id="user_name"
 							name="user_name" placeholder="이름을 입력해주세요"> <span
-							class="help-block"></span>
+							class="help-block" id="help-user_name"></span>
 					</div>
 				</div>
 
@@ -73,7 +73,7 @@
 					<div class="col-sm-5">
 						<input class="form-control input-sm" type="text" id="birth_date"
 							name="birth_date" placeholder="생일을 입력해주세요"> <span
-							class="help-block"></span>
+							class="help-block" id="help-birth_date">생일을 선택해주세요</span>
 					</div>
 				</div>
 
@@ -83,7 +83,7 @@
 					<div class="col-sm-5">
 						<input class="form-control input-sm" type="text" id="mobile_num"
 							name="mobile_num" placeholder="전화번호를 입력해주세요"> <span
-							class="help-block">-없이 입력해주세요</span>
+							class="help-block" id="help-mobile_num">-없이 입력해주세요</span>
 					</div>
 				</div>
 
@@ -93,16 +93,16 @@
 					<div class="col-sm-10">
 						<input class="form-control input-sm" type="text" id="address"
 							name="address" placeholder="주소를 입력해주세요"> <span
-							class="help-block"></span>
+							class="help-block" id="help-address"></span>
 					</div>
 				</div>
-				<p></p>
 
 				<div class="form-group">
 					<label for="inputEmail" class="col-sm-2">Email :</label>
 					<div class="col-sm-3">
-						<input type="text" id="text" name="email"
+						<input type="text" id="email" name="email"
 							class="form-control input-sm">
+							<span class="help-block" id="help-email">이메일을 입력해주세요</span>
 					</div>
 					<!-- 					<div class="col-sm-1">
 						<label for="aeroba">@</label>
@@ -115,7 +115,6 @@
 							<option>nate.com</option>
 						</select>
 					</div>
-					<span class="help-block"></span>
 				</div>
 
 
@@ -147,52 +146,156 @@
 		src="<c:url value="/webjars/jquery-ui/1.11.4/jquery-ui.min.js"/>"></script>
 
 
-	<script type="text/javascript">
+<script type="text/javascript">
+//값 검증
+var valid = new Array();
+
+var dup_ip = false;
+var agree = false;
+
+// input 변수들
+var user_id = $("#user_id");
+var passwd = $("#passwd");
+var nickname = $("#nickname");
+var user_name = $("#user_name");
+var birth_date = $("#birth_date");
+var mobile_num = $("#mobile_num");
+var address = $("#address");
+var email = $("#email");
 
 	$(function() {
-		$("#signUp").click(function() {
-	
-/* 			$("#form1").attr("action", "${path}/member/insert.do");
-			$("#form1").submit(); */
-
-		});// button signUp event ends
 		
-		
-		$("#home").click(function() {
-			location.href="${path}";
-		});
-		
-		$("#birth_date").datepicker({
+		user_id.keyup(function() {
+			var reg = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi;
 			
-		});//datepicker
-		
-/* 		// user_id length가 충족되면 ..
-		// 아니면 
-		$("#user_id").keyup(function() {
-			var user_id= $("#user_id").val().length;
-			if( user_id<5 || user_id>15 ){
+			if(reg.test(user_id.val())){
 				$("#help-user_id").css("color", "red");
+				$("#help-user_id").html("아이디에는 한글을 사용할 수 없습니다.");
+				valid[0] = 0;
 			} else {
-				$("#help-user_id").html("중복확인 검사를 해주세요");
+				var len_user_id = user_id.val().length;
+				
+				if(len_user_id < 5 || len_user_id > 15){
+					$("#help-user_id").css("color", "red");
+					$("#help-user_id").html("아이디는 5자 이상 15자 이하로 설정해주세요");
+					valid[0] = 0;
+				} else {
+					$("#help-user_id").css("color", "green");
+					$("#help-user_id").html("유효한  아이디입니다");
+					valid[0] = 1;				
+				}
 			}
-		});
+		});//user_id keyup
 		
-		// passwd length
-		$("#passwd").keyup(function() {
-			var passwd = $("#passwd").val().length;
-			if(passwd < 10 || passwd > 20){
+		passwd.keyup(function() {
+			var len_passwd = passwd.val().length;
+			if(len_passwd < 10 || len_passwd > 20){
 				$("#help-passwd").css("color", "red");
+				$("#help-passwd").html("비밀번호는 10자 이상 20자 이하로 설정해주세요");
+				valid[1] = 0;
 			} else {
 				$("#help-passwd").css("color", "green");
-				$("#help-passwd").html("유효한 비밀번호입니다.");
+				$("#help-passwd").html("유효한 비밀번호 입니다");
+				valid[1] = 1;
 			}
-		}); */
-	
-	});
-	
-	
-	
-	
+		}) //passwd keyup
+		
+		
+		mobile_num.keyup(function() {
+			var reg = /[^0-9]/gi;
+			if(reg.test(mobile_num.val())){
+				$("#help-mobile_num").css("color", "red");
+				$("#help-mobile_num").html("-를 제외한 숫자만 입력해야 합니다");
+				valid[2] = 0;
+			} else {
+				var len_mobile_num = mobile_num.val().length;
+				if(10 > len_mobile_num || len_mobile_num  > 11){
+					$("#help-mobile_num").css("color", "red");
+					$("#help-mobile_num").html("전화번호는 10자리에서 11자리 입니다");
+					valid[2] = 0;
+				} else {
+					$("#help-mobile_num").css("color", "green");
+					$("#help-mobile_num").html("유효한 전화번호 입니다");
+					valid[2] = 1;
+				}
+			}// if-else
+			
+		});// mobile_num keyup
+		
+		nickname.keyup(function() {
+			var len_nickname = nickname.val().length;
+			if( len_nickname > 6 ){
+				$("#help-nickname").css("color", "red");
+				$("#help-nickname").html("별명은 6자 이하로 설정해주세요");
+				valid[3] = 0;
+			} else {
+				$("#help-nickname").css("color", "green");
+				$("#help-nickname").html("유효한 별명입니다");
+				valid[3] = 1;
+			}
+		});// nickname keyup
+		
+		email.keyup(function() {
+
+			var reg = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi;
+
+			if(reg.test(email.val())){
+					
+					$("#help-email").css("color", "red");
+					$("#help-email").html("이메일에는 한글이 들어갈 수 없습니다");
+					valid[4] = 0;
+				} else {
+					
+					if(email.val().length > 15 || email.val().length <4){
+						$("#help-email").css("color", "red");
+						$("#help-email").html("이메일 아이디는 5자 이상 15자 이하입니다");
+						valid[4] = 0;
+					} else{
+						$("#help-email").css("color", "green");
+						$("#help-email").html("유효한 이메일 입니다");
+						valid[4] = 1;
+					}
+				} 
+			}); // email key up
+		
+		user_name.keyup(function() {
+			var reg = /[0-9]/gi;
+			if(reg.test(user_name.val())){
+				$("#help-user_name").css("color", "red");
+				$("#help-user_name").html("이름에는 숫자가 들어갈 수 없습니다");
+				valid[5] = 0;
+			} else {
+				var len_user_name = user_name.val().length;
+				
+				if(len_user_name > 20 || len_user_name <3){
+					$("#help-user_name").css("color", "red");
+					$("#help-user_name").html("이름은 3자 이상 20자 이하로 입력해주세요");
+					valid[5] = 0;
+				} else{
+					$("#help-user_name").css("color", "green");
+					$("#help-user_name").html("유효한 이름입니다");
+					valid[5] = 1;
+				}
+			}		
+		});// user_name keyup
+		
+		address.keyup(function() {
+			var len_address = address.val().length;
+			if(len_address <10 || len_address >50 ){
+				$("#help-address").css("color", "red");
+				$("#help-address").html("유효한 주소가 아닙니다");
+				valid[6] = 0;
+			} else {
+				$("#help-address").css("color", "green");
+				$("#help-address").html("유효한 주소입니다");
+				valid[6] = 1;
+			} 
+		});// address keyup	
+		
+		
+	});// windown on load
+
+
 </script>
 
 </body>
