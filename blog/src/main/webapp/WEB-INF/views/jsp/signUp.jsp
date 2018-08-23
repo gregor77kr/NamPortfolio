@@ -46,7 +46,7 @@
 					<div class="col-sm-5 ">
 						<input class="form-control input-sm" type="text" id="nickname"
 							name="nickname" placeholder="닉네임을 입력해주세요"> <span
-							class="help-block" >닉네임은 블로그에서 활동할 때 보이게 될 이름 입니다</span>
+							class="help-block" id="help-nickname">닉네임은 블로그에서 활동할 때 보이게 될 이름 입니다</span>
 					</div>
 				</div>
 
@@ -148,7 +148,8 @@
 
 <script type="text/javascript">
 //값 검증
-var valid = new Array();
+var valid = new Array(7);
+var validResult = false;
 
 var dup_ip = false;
 var agree = false;
@@ -224,9 +225,9 @@ var email = $("#email");
 		
 		nickname.keyup(function() {
 			var len_nickname = nickname.val().length;
-			if( len_nickname > 6 ){
+			if( len_nickname > 6 || len_nickname <2){
 				$("#help-nickname").css("color", "red");
-				$("#help-nickname").html("별명은 6자 이하로 설정해주세요");
+				$("#help-nickname").html("별명은 2자 이상 6자 이하로 설정해주세요");
 				valid[3] = 0;
 			} else {
 				$("#help-nickname").css("color", "green");
@@ -291,6 +292,89 @@ var email = $("#email");
 				valid[6] = 1;
 			} 
 		});// address keyup	
+		
+		$("#signUp").click(function() {
+
+			//null check
+			//user_id
+			if(user_id.val() == ''){
+				user_id.focus();
+				$("#help-user_id").css("color", "red");
+				$("#help-user_id").html("아이디를 입력해주세요");
+				return;
+			}
+			
+			if(passwd.val() == ''){
+				passwd.focus();
+				$("#help-passwd").css("color", "red");
+				$("#help-passwd").html("비밀번호를 입력해주세요");
+				return;
+			}
+			
+			if(nickname.val() == ''){
+				nickname.focus();
+				$("#help-nickname").css("color", "red");
+				$("#help-nickname").html("별명을 입력해주세요");
+				return;
+			}
+			
+			if(user_name.val() == ''){
+				user_name.focus();
+				$("#help-user_name").css("color", "red");
+				$("#help-user_name").html("이름을 입력해주세요");
+				return;
+			}
+			
+			if(birth_date.val() == ''){
+				birth_date.focus();
+				$("#help-birth_date").css("color", "red");
+				$("#help-birth_date").html("생일을 선택해주세요");
+				return;
+			}
+			
+			if(mobile_num.val() == ''){
+				mobile_num.focus();
+				$("#help-mobile_num").css("color", "red");
+				$("#help-mobile_num").html("전화번호를 입력해주세요");
+				return;
+			}
+			
+			if(address.val() == ''){
+				address.focus();
+				$("#help-address").css("color", "red");
+				$("#help-address").html("주소를 입력해주세요");
+				return;
+			}
+			
+			if(email.val() == ''){
+				email.focus();
+				$("#help-email").css("color", "red");
+				$("#help-email").html("이메일을 입력해주세요");	
+				return;
+			}
+			
+			for(var i=0; i<valid.length; i++){
+				console.log("valid"+i+":"+valid[i]);
+			}
+			
+			// null값과 0값을 찾지 못하면 
+			if(valid.indexOf(null) == -1 && valid.indexOf(0) == -1 ){
+				validResult = true;
+			}
+			
+			// validResult가 true일 때(즉 유효성 검사 결과가 ok일 때 )
+			if(validResult){
+				$("#form1").attr("action", "${path}/member/insert.do");
+				$("#form1").submit();				
+			} else{
+				alert("입력값을 다시 확인해주세요");
+			}
+			
+		});//sign up click
+		
+		$("#home").click(function() {
+			location.href = "${path}";
+		});// home click ends
 		
 		
 	});// windown on load
