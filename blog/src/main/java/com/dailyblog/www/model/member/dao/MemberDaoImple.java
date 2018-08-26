@@ -20,7 +20,19 @@ public class MemberDaoImple implements MemberDao{
 		sqlSession.insert("member.insert_nickname" ,dto);
 	}
 
+	@Override
+	public int checkDupId(String user_id) {
+	
+		return sqlSession.selectOne("member.check_dup_id", user_id);
+	}
 
+	@Override
+	public int checkDupName(String nickname) {
+		
+		return sqlSession.selectOne("member.check_dup_nickname", nickname);
+	}
+
+	
 
 	
 }

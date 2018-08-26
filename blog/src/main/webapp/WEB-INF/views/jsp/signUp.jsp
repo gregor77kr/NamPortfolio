@@ -14,7 +14,7 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/template.css" />">
 <link rel="stylesheet" type="text/css"
-	href="<c:url value="/webjars/jquery-ui/1.11.4/jquery-ui.min.css" />">
+	href="<c:url value="/webjars/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css" />">
 
 </head>
 <body>
@@ -39,6 +39,9 @@
 							name="user_id" placeholder="아이디를 입력해주세요"> <span
 							class="help-block" id="help-user_id">아이디는 영어와 숫자로 5자 이상 15자 이하로 설정해주세요</span>
 					</div>
+					<div class="col-sm-1"> 
+						<button type="button" class="btn btn-default" id="check_dup_id">중복확인</button>
+					</div>
 				</div>
 
 				<div class="form-group">
@@ -47,6 +50,10 @@
 						<input class="form-control input-sm" type="text" id="nickname"
 							name="nickname" placeholder="닉네임을 입력해주세요"> <span
 							class="help-block" id="help-nickname">닉네임은 블로그에서 활동할 때 보이게 될 이름 입니다</span>
+							
+					</div>
+					<div class="col-sm-1"> 
+						<button type="button" class="btn btn-default" id="check_dup_nickname">중복확인</button>
 					</div>
 				</div>
 
@@ -151,7 +158,8 @@
 var valid = new Array(7);
 var validResult = false;
 
-var dup_ip = false;
+var check_dup_id = false;
+var check_dup_nickname = false;
 var agree = false;
 
 // input 변수들
@@ -165,6 +173,83 @@ var address = $("#address");
 var email = $("#email");
 
 	$(function() {
+		//datepicker
+		birth_date.datepicker({
+			format : "yy/mm/dd",
+			autoclose: true,
+			endDate : "today",
+			todayHighlight : true,
+			
+		});
+		
+		//체크박스 체크 이벤트
+		$("#agree").change(function() {
+			if($("#agree").is(":checked")){
+				agree = true;
+			} else {
+				agree = false;
+			}
+		});
+		
+		
+		// 중복확인 클릭시 ajax event
+		// 1. 아이디 체크
+		$("#check_dup_id").click(function() {
+			
+			//null check
+			if(user_id.val() == ''){
+				user_id.focus();
+				$("#help-user_id").css("color", "red");
+				$("#help-user_id").html("사용하실  아이디를 입력하신 후에 검사해주세요.");
+				return;
+			} 
+			
+			// 유효성 check
+			// 유효한 아이디면 ajax 실행
+			if(valid[0] == 1){
+				$.ajax({
+					type : 'POST',
+					url : "${path}/member/check_id.do",
+					data : {"user_id" : user_id.val()},
+					success : function(data) {
+						if(data == 'valid'){
+							check_dup_id = true;
+							$("#help-user_id").css("color", "green");
+							$("#help-user_id").html("사용할 수 있는 아이디입니다.");
+						} else{
+							user_id.focus();
+							$("#help-user_id").css("color", "red");
+							$("#help-user_id").html("중복된 아이디입니다. 다른 아이디를 사용해주세요.");
+						}
+					}
+				});//ajax ends
+			} else{
+				user_id.focus();
+				$("#help-user_id").css("color", "red");
+				$("#help-user_id").html("유효하지 않은 아이디입니다.");
+				return;
+			}
+		});// click dup_id ends
+		
+		//2. 닉네임 중복 체크
+		$("#check_dup_nickname").click(function() {
+			$.ajax({
+				type: 'POST',
+				url : '${path}/member/check_nickname.do',
+				data : {'nickname': nickname.val()},
+				success : function(data) {
+					if(data == 'valid'){
+						check_dup_nickname = true;
+						$("#help-nickname").css("color", "green");
+						$("#help-nickname").html("사용할 수 있는 닉네임입니다.");
+					} else{
+						user_id.focus();
+						$("#help-nickname").css("color", "red");
+						$("#help-nickname").html("중복된 닉네임입니다. 다른 닉네임을 사용해주세요.");
+					}
+				}
+			});
+		});//click dup_name ends 
 		
 		user_id.keyup(function() {
 			var reg = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi;
@@ -353,9 +438,9 @@ var email = $("#email");
 				return;
 			}
 			
-			for(var i=0; i<valid.length; i++){
+/* 			for(var i=0; i<valid.length; i++){
 				console.log("valid"+i+":"+valid[i]);
-			}
+			} */
 			
 			// null값과 0값을 찾지 못하면 
 			if(valid.indexOf(null) == -1 && valid.indexOf(0) == -1 ){
@@ -363,12 +448,31 @@ var email = $("#email");
 			}
 			
 			// validResult가 true일 때(즉 유효성 검사 결과가 ok일 때 )
-			if(validResult){
+/* 			if(validResult){
 				$("#form1").attr("action", "${path}/member/insert.do");
 				$("#form1").submit();				
 			} else{
 				alert("입력값을 다시 확인해주세요");
+			} */
+
+			
+			if(!validResult){
+				alert("입력값을 다시 확인해주세요");
+			}else if(!check_dup_id){
+				user_id.focus();
+				$("#help-user_id").css("color", "red");
+				$("#help-user_id").html("아이디 중복검사를 해주세요");
+			}else if(!check_dup_nickname){
+				nickname.focus();
+				$("#help-nickname").css("color", "red");
+				$("#help-nickname").html("닉네임 중복검사를 해주세요");				
+			}else if(!agree){
+				alert("약관에 동의를해주세요");
+			} else{
+				$("#form1").attr("action", "${path}/member/insert.do");
+				$("#form1").submit();	
 			}
+			
 			
 		});//sign up click
 		
@@ -381,6 +485,8 @@ var email = $("#email");
 
 
 </script>
+
+<script type="text/javascript" src="<c:url value="/webjars/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js" />"></script>
 
 </body>
 </html>

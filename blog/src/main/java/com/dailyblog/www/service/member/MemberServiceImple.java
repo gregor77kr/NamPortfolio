@@ -18,6 +18,18 @@ public class MemberServiceImple implements MemberService{
 		
 		memberDao.memberInsert(dto);
 	}
+
+	@Override
+	public int checkDupId(String user_id) {
+		
+		return memberDao.checkDupId(user_id);
+	}
+
+	@Override
+	public int checkDupName(String nickname) {
+		
+		return memberDao.checkDupName(nickname);
+	}
 	
 	
 	

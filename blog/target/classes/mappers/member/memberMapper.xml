@@ -26,5 +26,17 @@
 		WHERE user_id = #{user_id}
 	</select>
 	
-
+	<select id="check_dup_id" resultType="int" parameterType="String">
+		SELECT count(user_id)
+		FROM member
+		WHERE user_id = #{user_id}
+	</select>
+	
+	<select id="check_dup_nickname" resultType="int" parameterType="String">
+		SELECT count(nickname)
+		FROM profile
+		WHERE nickname = #{nickname}
+	</select>
+	
+	
 </mapper>
