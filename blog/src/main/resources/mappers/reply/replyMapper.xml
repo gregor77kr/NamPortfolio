@@ -37,6 +37,7 @@
 		<foreach collection="list" item="i" open="(" close=")" separator=",">
 			#{i}
 		</foreach>
+		ORDER BY reply_date desc
 	
 	</select>
 	

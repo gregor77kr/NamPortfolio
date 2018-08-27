@@ -12,4 +12,5 @@ public interface BoardDao {
 	public BoardDto readOne(String up_no);
 	public void update(BoardDto dto);
 	public List<ReplyDto> readReply(List<String> no_list);
+	
 }

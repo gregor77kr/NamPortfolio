@@ -32,6 +32,12 @@ public class MemberDaoImple implements MemberDao{
 		return sqlSession.selectOne("member.check_dup_nickname", nickname);
 	}
 
+	@Override
+	public String findPasswd(String user_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 	

@@ -30,6 +30,12 @@ public class MemberServiceImple implements MemberService{
 		
 		return memberDao.checkDupName(nickname);
 	}
+
+	@Override
+	public String findPasswd(String user_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

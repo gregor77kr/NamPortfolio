@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,8 +39,9 @@
 							내 정보 관리 <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">프로필 관리</a></li>
-							<li><a href="#">계정 관리</a></li>
+							<li><a href="${path}/account/passwd.do/${sessionScope.user_info.user_id}">비밀번호 찾기</a></li>
+							<li><a href="${path}/account/info.do/${sessionScope.user_info.user_id}">회원정보 수정</a></li>
+							<li><a href="${path}/friend/list.do/${sessionScope.user_info.user_id}">친구 목록 관리</a></li>
 						</ul>
 					</li>
 					<!-- 내 정보 관리 끝 -->
@@ -94,12 +96,12 @@
 						<!-- 게시자 정보 -->
 						<header>
 							<div class="posi-left" id="writer_info">
-								<img alt="프로필사진" src="" class="img-circle">
+								
 								<a>${i.nickname}</a>
 								&middot;
 								<a href="#">친구추가</a>
 								<span>
-									게시일 
+									<small><fmt:formatDate value="${i.up_date}" pattern="yy/MM/dd"/> </small>
 									<button type="button" class="btnUpdate" value="${i.up_no}">수정</button>
 									<button type="button" class="btnRemove" value="${i.up_no}">삭제</button>																	
 								</span>			
@@ -330,6 +332,7 @@ function addComment(up_no) {
 		}
 	})
 } // add comment ends
+
 
 
 </script>
